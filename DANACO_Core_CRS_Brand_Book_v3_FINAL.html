@@ -131,7 +131,8 @@ body {
   .aneks-body-wrap { transition: none !important }
   .aneks-icon { transition: none !important }
   .cover-symbol, .cover-wordmark, .cover-crs, .cover-gold-line,
-  .cover-edition, .cover-powered, .cover-meta { animation: none !important }
+  .cover-edition, .cover-powered, .cover-meta,
+  .cover-topleft-accent, .cover-topright, .cover-bottomright { animation: none !important }
 }
 
 /* ─── GOLD SHIMMER EFFECT (static, no animation) ─── */
@@ -822,6 +823,26 @@ body {
 }
 .sidebar-overlay.visible { display: block; opacity: 1 }
 
+/* ─── SIDEBAR PUSH BEHAVIOR ─── */
+/* Cover and main content transition when sidebar opens */
+#cover,
+.main {
+  transition: margin-left 0.58s cubic-bezier(0.16,1,0.3,1),
+              margin-right 0.58s cubic-bezier(0.16,1,0.3,1);
+}
+
+/* Left sidebar open → push cover to the right */
+body.sb-push-left #cover,
+body.sb-push-left .main {
+  margin-left: 300px;
+}
+
+/* Right sidebar open → push cover to the left */
+body.sb-push-right #cover,
+body.sb-push-right .main {
+  margin-right: 300px;
+}
+
 /* ─── MAIN ─── */
 .main { margin-left: 0 }
 
@@ -1111,6 +1132,171 @@ details.aneks[open] .aneks-body-wrap { grid-template-rows: 1fr }
 }
 .cover-meta-line { font-size: 13px; color: rgba(12,31,20,0.45); letter-spacing: 0.05em }
 .cover-meta-line.conf { color: #96762A; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase }
+
+/* ─── COVER: new asymmetric layout ─── */
+#cover {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  align-items: stretch;
+  justify-items: stretch;
+  text-align: left;
+  padding: 0;
+}
+#cover .cover-lockup {
+  grid-column: 1;
+  grid-row: 2;
+  align-items: flex-start;
+  justify-content: flex-end;
+  padding: 0 64px 64px;
+}
+#cover .cover-meta {
+  align-items: flex-start;
+  border-top: 1px solid rgba(150,118,42,0.12);
+  padding-top: 24px;
+  margin-top: 8px;
+}
+
+/* ── Top-right area: document scope & quick stats ── */
+.cover-topright {
+  grid-column: 2;
+  grid-row: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: flex-start;
+  padding: 64px 64px 32px;
+  position: relative;
+  z-index: 1;
+}
+.cover-scope-label {
+  font-family: var(--ff-primary);
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(150,118,42,0.55);
+  margin-bottom: 16px;
+}
+.cover-scope-list {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 10px;
+  margin-bottom: 32px;
+}
+.cover-scope-item {
+  font-family: var(--ff-secondary);
+  font-size: 18px;
+  font-weight: 400;
+  font-style: italic;
+  color: rgba(12,31,20,0.40);
+  letter-spacing: 0.01em;
+  line-height: 1.3;
+  transition: color 0.3s ease;
+}
+.cover-scope-item:hover {
+  color: var(--emerald);
+}
+.cover-scope-line {
+  width: 48px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(150,118,42,0.30));
+  margin-bottom: 24px;
+  align-self: flex-end;
+}
+.cover-scope-stats {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 6px;
+}
+.cover-scope-stat {
+  font-family: var(--ff-primary);
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 0.05em;
+  color: rgba(12,31,20,0.28);
+}
+.cover-scope-stat strong {
+  font-weight: 600;
+  color: rgba(12,31,20,0.42);
+}
+
+/* ── Top-left decorative area ── */
+.cover-topleft {
+  grid-column: 1;
+  grid-row: 1;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: 64px;
+  position: relative;
+  z-index: 1;
+}
+.cover-topleft-accent {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.cover-topleft-line {
+  height: 1px;
+  background: linear-gradient(90deg, rgba(150,118,42,0.22), transparent 80%);
+}
+.cover-topleft-line:nth-child(1) { width: 80px; }
+.cover-topleft-line:nth-child(2) { width: 48px; opacity: 0.6; }
+.cover-topleft-line:nth-child(3) { width: 28px; opacity: 0.35; }
+
+/* ── Bottom-right: edition badge ── */
+.cover-bottomright {
+  grid-column: 2;
+  grid-row: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: flex-end;
+  padding: 32px 64px 64px;
+  position: relative;
+  z-index: 1;
+}
+.cover-badge {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 12px;
+}
+.cover-badge-edition {
+  font-family: var(--ff-secondary);
+  font-style: italic;
+  font-size: 16px;
+  color: rgba(150,118,42,0.60);
+  letter-spacing: 0.02em;
+}
+.cover-badge-ver {
+  font-family: var(--ff-primary);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(12,31,20,0.22);
+}
+.cover-badge-conf {
+  font-family: var(--ff-primary);
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(150,118,42,0.45);
+  padding: 6px 14px;
+  border: 1px solid rgba(150,118,42,0.15);
+  border-radius: 3px;
+  margin-top: 4px;
+}
+
+/* Cover animations for new layout */
+.cover-topleft-accent { animation: fadeInUp .9s cubic-bezier(0.16,1,0.3,1) .1s both }
+.cover-topright { animation: fadeInUp .9s cubic-bezier(0.16,1,0.3,1) .3s both }
+.cover-bottomright { animation: fadeInUp .9s cubic-bezier(0.16,1,0.3,1) .7s both }
 
 /* Prototype cover classes */
 .cover {
@@ -2153,10 +2339,17 @@ details.aneks[open] .aneks-body-wrap { grid-template-rows: 1fr }
 @media (max-width: 960px) {
   #sidebar { display: none }
   .spine { display: none }
-  body { margin-left: 0 !important }
+  body { margin-left: 0 !important; margin-right: 0 !important }
   .main { margin-left: 0 }
   .ch-ghost { display: none }
   .chapter-progress { left: 0 }
+  body.sb-push-left #cover,
+  body.sb-push-left .main,
+  body.sb-push-right #cover,
+  body.sb-push-right .main {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+  }
 }
 
 /* 900px */
@@ -2206,6 +2399,20 @@ details.aneks[open] .aneks-body-wrap { grid-template-rows: 1fr }
   .cover-name { font-size: 38px }
   .type-sans { font-size: 34px }
   .type-serif { font-size: 32px }
+
+  /* Cover: collapse to single column on mobile */
+  #cover {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto auto auto;
+  }
+  .cover-topleft { grid-column: 1; grid-row: 1; padding: 32px 24px 16px }
+  #cover .cover-lockup { grid-column: 1; grid-row: 2; padding: 16px 24px }
+  .cover-topright { grid-column: 1; grid-row: 3; align-items: flex-start; padding: 16px 24px }
+  .cover-scope-list { align-items: flex-start }
+  .cover-scope-line { align-self: flex-start; background: linear-gradient(90deg, rgba(150,118,42,0.30), transparent) }
+  .cover-scope-stats { align-items: flex-start }
+  .cover-bottomright { grid-column: 1; grid-row: 4; align-items: flex-start; padding: 16px 24px 32px }
+  .cover-badge { align-items: flex-start }
 }
 
 /* 700px */
@@ -2723,52 +2930,78 @@ body{margin-left:0!important}
 ════════════════════════════════════════════ -->
 <section id="cover" aria-label="Okładka Księgi">
 
-  <!-- Logo lockup -->
+  <!-- Top-left: decorative accent lines -->
+  <div class="cover-topleft">
+    <div class="cover-topleft-accent" aria-hidden="true">
+      <div class="cover-topleft-line"></div>
+      <div class="cover-topleft-line"></div>
+      <div class="cover-topleft-line"></div>
+    </div>
+  </div>
+
+  <!-- Top-right: document scope & quick reference -->
+  <div class="cover-topright">
+    <div class="cover-scope-label">Zakres dokumentu</div>
+    <div class="cover-scope-list">
+      <span class="cover-scope-item">Tożsamość marki</span>
+      <span class="cover-scope-item">System wizualny</span>
+      <span class="cover-scope-item">Marka cyfrowa</span>
+      <span class="cover-scope-item">Marka fizyczna</span>
+      <span class="cover-scope-item">Governance &amp; Compliance</span>
+    </div>
+    <div class="cover-scope-line"></div>
+    <div class="cover-scope-stats">
+      <span class="cover-scope-stat"><strong>10</strong> rozdziałów</span>
+      <span class="cover-scope-stat"><strong>84</strong> podrozdziałów</span>
+      <span class="cover-scope-stat"><strong>360+</strong> wytycznych</span>
+    </div>
+  </div>
+
+  <!-- Bottom-left: logo lockup + meta (justified left) -->
   <div class="cover-lockup">
-  <!-- Symbol -->
-  <div class="cover-symbol" aria-hidden="true">
-    <svg width="140" height="140" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <defs>
-        <linearGradient id="cov-sg" x1="0" y1="0" x2="120" y2="120" gradientUnits="userSpaceOnUse">
-          <stop offset="0%" stop-color="#1A4D2E"/><stop offset="100%" stop-color="#0C1F14"/>
-        </linearGradient>
-        <linearGradient id="cov-gg" x1="0" y1="0" x2="120" y2="0" gradientUnits="userSpaceOnUse">
-          <stop offset="0%" stop-color="#96762A"/><stop offset="45%" stop-color="#C9A84C"/><stop offset="100%" stop-color="#96762A"/>
-        </linearGradient>
-        <clipPath id="cov-mkc"><path d="M24,0 L96,0 A24,24 0 0 1 120,24 L120,120 L24,120 A24,24 0 0 1 0,96 L0,24 A24,24 0 0 1 24,0 Z"/></clipPath>
-      </defs>
-      <path d="M24,0 L96,0 A24,24 0 0 1 120,24 L120,120 L24,120 A24,24 0 0 1 0,96 L0,24 A24,24 0 0 1 24,0 Z" fill="url(#cov-sg)"/>
-      <rect x="0" y="103" width="120" height="17" fill="url(#cov-gg)" clip-path="url(#cov-mkc)"/>
-      <text x="112" y="96" font-family="'Inter',sans-serif" font-weight="900" font-size="22" fill="#C9A84C" text-anchor="end" letter-spacing="0.5">CRS</text>
-    </svg>
-  </div>
+    <!-- Symbol -->
+    <div class="cover-symbol" aria-hidden="true">
+      <svg width="140" height="140" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="cov-sg" x1="0" y1="0" x2="120" y2="120" gradientUnits="userSpaceOnUse">
+            <stop offset="0%" stop-color="#1A4D2E"/><stop offset="100%" stop-color="#0C1F14"/>
+          </linearGradient>
+          <linearGradient id="cov-gg" x1="0" y1="0" x2="120" y2="0" gradientUnits="userSpaceOnUse">
+            <stop offset="0%" stop-color="#96762A"/><stop offset="45%" stop-color="#C9A84C"/><stop offset="100%" stop-color="#96762A"/>
+          </linearGradient>
+          <clipPath id="cov-mkc"><path d="M24,0 L96,0 A24,24 0 0 1 120,24 L120,120 L24,120 A24,24 0 0 1 0,96 L0,24 A24,24 0 0 1 24,0 Z"/></clipPath>
+        </defs>
+        <path d="M24,0 L96,0 A24,24 0 0 1 120,24 L120,120 L24,120 A24,24 0 0 1 0,96 L0,24 A24,24 0 0 1 24,0 Z" fill="url(#cov-sg)"/>
+        <rect x="0" y="103" width="120" height="17" fill="url(#cov-gg)" clip-path="url(#cov-mkc)"/>
+        <text x="112" y="96" font-family="'Inter',sans-serif" font-weight="900" font-size="22" fill="#C9A84C" text-anchor="end" letter-spacing="0.5">CRS</text>
+      </svg>
+    </div>
 
-  <!-- Wordmark -->
-  <div class="cover-wordmark">
-    <span class="wm-danaco">Danaco&nbsp;</span><span class="wm-core">Core</span>
-  </div>
+    <!-- Wordmark -->
+    <div class="cover-wordmark">
+      <span class="wm-danaco">Danaco&nbsp;</span><span class="wm-core">Core</span>
+    </div>
 
-  <!-- CRS descriptor -->
-  <div class="cover-crs">Case Reasoning System</div>
+    <!-- CRS descriptor -->
+    <div class="cover-crs">Case Reasoning System</div>
 
-  <!-- Gold line -->
-  
-
-  <!-- Edition -->
-  <div class="cover-edition">Enterprise Edition</div>
-
-  <!-- Powered by -->
-  
+    <!-- Meta -->
+    <div class="cover-meta">
+      <div class="cover-meta-line">Master Management System of Brand (MMSB)</div>
+      <div class="cover-meta-line" style="font-size:10px;letter-spacing:0.06em;margin-top:4px">Brand Identity · Visual System · Digital System · Governance &amp; Compliance</div>
+      <div class="cover-meta-line">Danaco Holding Group</div>
+    </div>
   </div><!-- /cover-lockup -->
 
-  <!-- Meta -->
-  <div class="cover-meta">
-    <div class="cover-meta-line">Master Management System of Brand (MMSB)</div>
-    <div class="cover-meta-line" style="font-size:10px;letter-spacing:0.06em;margin-top:4px">Brand Identity · Visual System · Digital System · Governance &amp; Compliance</div>
-    <div class="cover-meta-line">Version 3.0 · March 2026</div>
-    <div class="cover-meta-line conf">CONFIDENTIAL — Internal &amp; Licensed Partners Only</div>
-    <div class="cover-meta-line">Danaco Holding Group</div>
-  </div><!-- /sec-inner -->
+  <!-- Bottom-right: edition badge -->
+  <div class="cover-bottomright">
+    <div class="cover-badge">
+      <span class="cover-badge-edition">Enterprise Edition</span>
+      <span class="cover-badge-ver">Version 3.0 · March 2026</span>
+      <span class="cover-badge-conf">Confidential</span>
+    </div>
+  </div>
+
 </section>
 
 <!-- ═══════════ STATS BANNER ═══════════ -->
@@ -11533,15 +11766,33 @@ body{margin-left:0!important}
   /* ─── Open / close ─── */
   let closeTimer = null;
 
+  function updatePushClasses(opening) {
+    const isRight = sbGhost.classList.contains('side-right');
+    if (opening) {
+      document.body.classList.toggle('sb-push-left', !isRight);
+      document.body.classList.toggle('sb-push-right', isRight);
+    } else {
+      document.body.classList.remove('sb-push-left', 'sb-push-right');
+    }
+  }
+
   function openSidebar() {
     clearTimeout(closeTimer);
     sbGhost.classList.add('open');
+    updatePushClasses(true);
     requestAnimationFrame(updateTracking);
   }
   function closeSidebar(delay) {
     clearTimeout(closeTimer);
-    if (delay) { closeTimer = setTimeout(() => sbGhost.classList.remove('open'), delay); }
-    else sbGhost.classList.remove('open');
+    if (delay) {
+      closeTimer = setTimeout(() => {
+        sbGhost.classList.remove('open');
+        updatePushClasses(false);
+      }, delay);
+    } else {
+      sbGhost.classList.remove('open');
+      updatePushClasses(false);
+    }
   }
 
   const isRightVariant = () => sbGhost.classList.contains('side-right');
@@ -11593,8 +11844,9 @@ body{margin-left:0!important}
   const sideToggle = document.getElementById('sb-side-toggle');
   if (sideToggle) {
     sideToggle.addEventListener('click', () => {
-      const isRight = sbGhost.classList.toggle('side-right');
+      const wasOpen = sbGhost.classList.contains('open');
       closeSidebar(0);
+      const isRight = sbGhost.classList.toggle('side-right');
       sideToggle.textContent = isRight ? '← Lewy' : 'Prawy →';
       sideToggle.title = isRight ? 'Przełącz na lewy sidebar' : 'Przełącz na prawy sidebar';
     });
