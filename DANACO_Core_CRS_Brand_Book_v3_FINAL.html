@@ -1135,162 +1135,175 @@ details.aneks[open] .aneks-body-wrap { grid-template-rows: 1fr }
 
 /* ─── COVER: new asymmetric layout ─── */
 #cover {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: 1fr 1fr;
+  display: flex;
+  flex-direction: column;
   align-items: stretch;
-  justify-items: stretch;
+  justify-content: flex-end;
   text-align: left;
   padding: 0;
 }
-#cover .cover-lockup {
-  grid-column: 1;
-  grid-row: 2;
+
+/* ── Top strip: decorative left + scope right ── */
+.cover-topstrip {
+  display: flex;
   align-items: flex-start;
-  justify-content: flex-end;
-  padding: 0 64px 64px;
-}
-#cover .cover-meta {
-  align-items: flex-start;
-  border-top: 1px solid rgba(150,118,42,0.12);
-  padding-top: 24px;
-  margin-top: 8px;
+  justify-content: space-between;
+  padding: 48px 64px 0;
+  flex-shrink: 0;
+  position: relative;
+  z-index: 1;
 }
 
-/* ── Top-right area: document scope & quick stats ── */
+/* ── Top-left decorative accent ── */
+.cover-topleft {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  padding-top: 4px;
+}
+.cover-topleft-accent {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.cover-topleft-line {
+  height: 1px;
+  background: linear-gradient(90deg, rgba(150,118,42,0.28), transparent 80%);
+}
+.cover-topleft-line:nth-child(1) { width: 64px; }
+.cover-topleft-line:nth-child(2) { width: 36px; opacity: 0.6; }
+.cover-topleft-line:nth-child(3) { width: 20px; opacity: 0.3; }
+
+/* ── Top-right area: document scope ── */
 .cover-topright {
-  grid-column: 2;
-  grid-row: 1;
   display: flex;
   flex-direction: column;
   align-items: flex-end;
-  justify-content: flex-start;
-  padding: 64px 64px 32px;
+  gap: 0;
   position: relative;
   z-index: 1;
 }
 .cover-scope-label {
   font-family: var(--ff-primary);
-  font-size: 9px;
+  font-size: 8px;
   font-weight: 600;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: rgba(150,118,42,0.55);
-  margin-bottom: 16px;
+  color: rgba(150,118,42,0.50);
+  margin-bottom: 14px;
 }
 .cover-scope-list {
   display: flex;
   flex-direction: column;
   align-items: flex-end;
-  gap: 10px;
-  margin-bottom: 32px;
+  gap: 6px;
+  margin-bottom: 18px;
 }
 .cover-scope-item {
   font-family: var(--ff-secondary);
-  font-size: 18px;
+  font-size: 15px;
   font-weight: 400;
   font-style: italic;
-  color: rgba(12,31,20,0.40);
+  color: rgba(12,31,20,0.32);
   letter-spacing: 0.01em;
   line-height: 1.3;
   transition: color 0.3s ease;
+  cursor: default;
 }
 .cover-scope-item:hover {
   color: var(--emerald);
 }
 .cover-scope-line {
-  width: 48px;
+  width: 36px;
   height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(150,118,42,0.30));
-  margin-bottom: 24px;
+  background: linear-gradient(90deg, transparent, rgba(150,118,42,0.25));
+  margin-bottom: 14px;
   align-self: flex-end;
 }
 .cover-scope-stats {
   display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  gap: 6px;
+  gap: 20px;
+  align-items: center;
 }
 .cover-scope-stat {
   font-family: var(--ff-primary);
-  font-size: 11px;
+  font-size: 10px;
   font-weight: 400;
-  letter-spacing: 0.05em;
-  color: rgba(12,31,20,0.28);
+  letter-spacing: 0.04em;
+  color: rgba(12,31,20,0.24);
 }
 .cover-scope-stat strong {
   font-weight: 600;
-  color: rgba(12,31,20,0.42);
+  color: rgba(12,31,20,0.38);
 }
 
-/* ── Top-left decorative area ── */
-.cover-topleft {
-  grid-column: 1;
-  grid-row: 1;
+/* ── Main area: lockup left, edition badge right ── */
+.cover-main {
+  flex: 1;
   display: flex;
-  align-items: flex-start;
-  justify-content: flex-start;
-  padding: 64px;
+  align-items: flex-end;
+  justify-content: space-between;
+  padding: 0 64px 56px;
+  gap: 40px;
   position: relative;
   z-index: 1;
 }
-.cover-topleft-accent {
+
+#cover .cover-lockup {
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  align-items: flex-start;
+  padding: 0;
+  max-width: 560px;
 }
-.cover-topleft-line {
-  height: 1px;
-  background: linear-gradient(90deg, rgba(150,118,42,0.22), transparent 80%);
+#cover .cover-meta {
+  align-items: flex-start;
+  border-top: 1px solid rgba(150,118,42,0.12);
+  padding-top: 20px;
+  margin-top: 8px;
 }
-.cover-topleft-line:nth-child(1) { width: 80px; }
-.cover-topleft-line:nth-child(2) { width: 48px; opacity: 0.6; }
-.cover-topleft-line:nth-child(3) { width: 28px; opacity: 0.35; }
 
 /* ── Bottom-right: edition badge ── */
 .cover-bottomright {
-  grid-column: 2;
-  grid-row: 2;
   display: flex;
   flex-direction: column;
   align-items: flex-end;
   justify-content: flex-end;
-  padding: 32px 64px 64px;
-  position: relative;
-  z-index: 1;
+  flex-shrink: 0;
+  padding-bottom: 4px;
 }
 .cover-badge {
   display: flex;
   flex-direction: column;
   align-items: flex-end;
-  gap: 12px;
+  gap: 10px;
 }
 .cover-badge-edition {
   font-family: var(--ff-secondary);
   font-style: italic;
-  font-size: 16px;
-  color: rgba(150,118,42,0.60);
+  font-size: 15px;
+  color: rgba(150,118,42,0.55);
   letter-spacing: 0.02em;
 }
 .cover-badge-ver {
   font-family: var(--ff-primary);
-  font-size: 10px;
+  font-size: 9px;
   font-weight: 500;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.10em;
   text-transform: uppercase;
-  color: rgba(12,31,20,0.22);
+  color: rgba(12,31,20,0.20);
 }
 .cover-badge-conf {
   font-family: var(--ff-primary);
-  font-size: 9px;
+  font-size: 8px;
   font-weight: 600;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: rgba(150,118,42,0.45);
-  padding: 6px 14px;
-  border: 1px solid rgba(150,118,42,0.15);
-  border-radius: 3px;
-  margin-top: 4px;
+  color: rgba(150,118,42,0.40);
+  padding: 5px 12px;
+  border: 1px solid rgba(150,118,42,0.14);
+  border-radius: 2px;
+  margin-top: 2px;
 }
 
 /* Cover animations for new layout */
@@ -2400,18 +2413,14 @@ details.aneks[open] .aneks-body-wrap { grid-template-rows: 1fr }
   .type-sans { font-size: 34px }
   .type-serif { font-size: 32px }
 
-  /* Cover: collapse to single column on mobile */
-  #cover {
-    grid-template-columns: 1fr;
-    grid-template-rows: auto auto auto auto;
-  }
-  .cover-topleft { grid-column: 1; grid-row: 1; padding: 32px 24px 16px }
-  #cover .cover-lockup { grid-column: 1; grid-row: 2; padding: 16px 24px }
-  .cover-topright { grid-column: 1; grid-row: 3; align-items: flex-start; padding: 16px 24px }
+  /* Cover: collapse on mobile */
+  .cover-topstrip { flex-direction: column; padding: 32px 24px 0; gap: 20px }
+  .cover-topright { align-items: flex-start }
   .cover-scope-list { align-items: flex-start }
   .cover-scope-line { align-self: flex-start; background: linear-gradient(90deg, rgba(150,118,42,0.30), transparent) }
-  .cover-scope-stats { align-items: flex-start }
-  .cover-bottomright { grid-column: 1; grid-row: 4; align-items: flex-start; padding: 16px 24px 32px }
+  .cover-scope-stats { flex-direction: column; align-items: flex-start }
+  .cover-main { flex-direction: column; padding: 0 24px 32px; gap: 24px }
+  .cover-bottomright { align-items: flex-start }
   .cover-badge { align-items: flex-start }
 }
 
@@ -2930,77 +2939,79 @@ body{margin-left:0!important}
 ════════════════════════════════════════════ -->
 <section id="cover" aria-label="Okładka Księgi">
 
-  <!-- Top-left: decorative accent lines -->
-  <div class="cover-topleft">
-    <div class="cover-topleft-accent" aria-hidden="true">
-      <div class="cover-topleft-line"></div>
-      <div class="cover-topleft-line"></div>
-      <div class="cover-topleft-line"></div>
+  <!-- Top strip: accent left + scope right -->
+  <div class="cover-topstrip">
+    <div class="cover-topleft">
+      <div class="cover-topleft-accent" aria-hidden="true">
+        <div class="cover-topleft-line"></div>
+        <div class="cover-topleft-line"></div>
+        <div class="cover-topleft-line"></div>
+      </div>
+    </div>
+    <div class="cover-topright">
+      <div class="cover-scope-label">Zakres dokumentu</div>
+      <div class="cover-scope-list">
+        <span class="cover-scope-item">Tożsamość marki</span>
+        <span class="cover-scope-item">System wizualny</span>
+        <span class="cover-scope-item">Marka cyfrowa</span>
+        <span class="cover-scope-item">Marka fizyczna</span>
+        <span class="cover-scope-item">Governance &amp; Compliance</span>
+      </div>
+      <div class="cover-scope-line"></div>
+      <div class="cover-scope-stats">
+        <span class="cover-scope-stat"><strong>10</strong> rozdziałów</span>
+        <span class="cover-scope-stat"><strong>84</strong> sekcji</span>
+        <span class="cover-scope-stat"><strong>360+</strong> wytycznych</span>
+      </div>
     </div>
   </div>
 
-  <!-- Top-right: document scope & quick reference -->
-  <div class="cover-topright">
-    <div class="cover-scope-label">Zakres dokumentu</div>
-    <div class="cover-scope-list">
-      <span class="cover-scope-item">Tożsamość marki</span>
-      <span class="cover-scope-item">System wizualny</span>
-      <span class="cover-scope-item">Marka cyfrowa</span>
-      <span class="cover-scope-item">Marka fizyczna</span>
-      <span class="cover-scope-item">Governance &amp; Compliance</span>
-    </div>
-    <div class="cover-scope-line"></div>
-    <div class="cover-scope-stats">
-      <span class="cover-scope-stat"><strong>10</strong> rozdziałów</span>
-      <span class="cover-scope-stat"><strong>84</strong> podrozdziałów</span>
-      <span class="cover-scope-stat"><strong>360+</strong> wytycznych</span>
-    </div>
-  </div>
+  <!-- Main area: lockup left + edition badge right -->
+  <div class="cover-main">
+    <div class="cover-lockup">
+      <!-- Symbol -->
+      <div class="cover-symbol" aria-hidden="true">
+        <svg width="140" height="140" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="cov-sg" x1="0" y1="0" x2="120" y2="120" gradientUnits="userSpaceOnUse">
+              <stop offset="0%" stop-color="#1A4D2E"/><stop offset="100%" stop-color="#0C1F14"/>
+            </linearGradient>
+            <linearGradient id="cov-gg" x1="0" y1="0" x2="120" y2="0" gradientUnits="userSpaceOnUse">
+              <stop offset="0%" stop-color="#96762A"/><stop offset="45%" stop-color="#C9A84C"/><stop offset="100%" stop-color="#96762A"/>
+            </linearGradient>
+            <clipPath id="cov-mkc"><path d="M24,0 L96,0 A24,24 0 0 1 120,24 L120,120 L24,120 A24,24 0 0 1 0,96 L0,24 A24,24 0 0 1 24,0 Z"/></clipPath>
+          </defs>
+          <path d="M24,0 L96,0 A24,24 0 0 1 120,24 L120,120 L24,120 A24,24 0 0 1 0,96 L0,24 A24,24 0 0 1 24,0 Z" fill="url(#cov-sg)"/>
+          <rect x="0" y="103" width="120" height="17" fill="url(#cov-gg)" clip-path="url(#cov-mkc)"/>
+          <text x="112" y="96" font-family="'Inter',sans-serif" font-weight="900" font-size="22" fill="#C9A84C" text-anchor="end" letter-spacing="0.5">CRS</text>
+        </svg>
+      </div>
 
-  <!-- Bottom-left: logo lockup + meta (justified left) -->
-  <div class="cover-lockup">
-    <!-- Symbol -->
-    <div class="cover-symbol" aria-hidden="true">
-      <svg width="140" height="140" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <defs>
-          <linearGradient id="cov-sg" x1="0" y1="0" x2="120" y2="120" gradientUnits="userSpaceOnUse">
-            <stop offset="0%" stop-color="#1A4D2E"/><stop offset="100%" stop-color="#0C1F14"/>
-          </linearGradient>
-          <linearGradient id="cov-gg" x1="0" y1="0" x2="120" y2="0" gradientUnits="userSpaceOnUse">
-            <stop offset="0%" stop-color="#96762A"/><stop offset="45%" stop-color="#C9A84C"/><stop offset="100%" stop-color="#96762A"/>
-          </linearGradient>
-          <clipPath id="cov-mkc"><path d="M24,0 L96,0 A24,24 0 0 1 120,24 L120,120 L24,120 A24,24 0 0 1 0,96 L0,24 A24,24 0 0 1 24,0 Z"/></clipPath>
-        </defs>
-        <path d="M24,0 L96,0 A24,24 0 0 1 120,24 L120,120 L24,120 A24,24 0 0 1 0,96 L0,24 A24,24 0 0 1 24,0 Z" fill="url(#cov-sg)"/>
-        <rect x="0" y="103" width="120" height="17" fill="url(#cov-gg)" clip-path="url(#cov-mkc)"/>
-        <text x="112" y="96" font-family="'Inter',sans-serif" font-weight="900" font-size="22" fill="#C9A84C" text-anchor="end" letter-spacing="0.5">CRS</text>
-      </svg>
-    </div>
+      <!-- Wordmark -->
+      <div class="cover-wordmark">
+        <span class="wm-danaco">Danaco&nbsp;</span><span class="wm-core">Core</span>
+      </div>
 
-    <!-- Wordmark -->
-    <div class="cover-wordmark">
-      <span class="wm-danaco">Danaco&nbsp;</span><span class="wm-core">Core</span>
-    </div>
+      <!-- CRS descriptor -->
+      <div class="cover-crs">Case Reasoning System</div>
 
-    <!-- CRS descriptor -->
-    <div class="cover-crs">Case Reasoning System</div>
+      <!-- Meta -->
+      <div class="cover-meta">
+        <div class="cover-meta-line">Master Management System of Brand (MMSB)</div>
+        <div class="cover-meta-line" style="font-size:10px;letter-spacing:0.06em;margin-top:4px">Brand Identity · Visual System · Digital System · Governance &amp; Compliance</div>
+        <div class="cover-meta-line">Danaco Holding Group</div>
+      </div>
+    </div><!-- /cover-lockup -->
 
-    <!-- Meta -->
-    <div class="cover-meta">
-      <div class="cover-meta-line">Master Management System of Brand (MMSB)</div>
-      <div class="cover-meta-line" style="font-size:10px;letter-spacing:0.06em;margin-top:4px">Brand Identity · Visual System · Digital System · Governance &amp; Compliance</div>
-      <div class="cover-meta-line">Danaco Holding Group</div>
+    <!-- Edition badge -->
+    <div class="cover-bottomright">
+      <div class="cover-badge">
+        <span class="cover-badge-edition">Enterprise Edition</span>
+        <span class="cover-badge-ver">Version 3.0 · March 2026</span>
+        <span class="cover-badge-conf">Confidential</span>
+      </div>
     </div>
-  </div><!-- /cover-lockup -->
-
-  <!-- Bottom-right: edition badge -->
-  <div class="cover-bottomright">
-    <div class="cover-badge">
-      <span class="cover-badge-edition">Enterprise Edition</span>
-      <span class="cover-badge-ver">Version 3.0 · March 2026</span>
-      <span class="cover-badge-conf">Confidential</span>
-    </div>
-  </div>
+  </div><!-- /cover-main -->
 
 </section>
 
